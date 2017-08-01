@@ -1,5 +1,8 @@
 class Card
 
+  attr_reader :value
+  attr_accessor :show 
+
   def initialize(value, show=false)
     @value = value
     @show = show
@@ -17,8 +20,9 @@ class Card
   #
   # end
   #
-  # def ==
-  #
-  # end
+
+  def equal(card_two)
+    self.value == card_two.value
+  end
 
 end
