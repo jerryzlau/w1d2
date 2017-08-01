@@ -4,7 +4,7 @@ class Board
 
   attr_reader :board
 
-  def initialize(board_size=4)
+  def initialize(board_size)
     raise "invalid board size" if board_size.odd?
     @board = populate(board_size)
   end
@@ -41,7 +41,12 @@ class Board
   end
 
   def won?
-    @board.all? {|card| card.show == true}
+    @board.flatten.all? {|card| card.show == true}
+  end
+
+  def [](pos)
+    x, y = pos
+    @board[x][y]
   end
 
   def reveal
@@ -50,8 +55,8 @@ class Board
 
 end
 
-if __FILE__ == $PROGRAM_NAME
-  board = Board.new(6)
-  board.render
-  board.board.length
-end
+# if __FILE__ == $PROGRAM_NAME
+#   board = Board.new(6)
+#   board.render
+#   board.board.length
+# end
