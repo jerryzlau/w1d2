@@ -18,9 +18,9 @@ class Board
     result.each do |outside|
       outside.map! do |inside|
         if inside == 0
-          inside = Tile.new(" ")
+          Tile.new(" ")
         else
-          inside = Tile.new(inside, true)
+          Tile.new(inside, true)
         end
       end
     end
@@ -60,23 +60,31 @@ class Board
 
 
   def solved?
-
     @grid.flatten.map {|el| el.value}.all? {|el| el.is_a?(Integer)}
-
-
   end
 
   def make_move
+
     puts "Which row?"
     row = gets.chomp.to_i-1
     puts "Which column?"
     column = gets.chomp.to_i-1
     puts "What number?"
     number = gets.chomp.to_i
-    # p valid_input?([row,column,number])
-    if valid_input?([row,column,number])
-      @grid[row][column].value = number unless @grid[row][column].given
+    
+    if @grid[row][column].given
+      puts "spot already has a number"
       return
+    end
+
+    if valid_input?([row,column,number])
+      if !@grid[row][column].given
+        @grid[row][column].value = number
+        @grid[row][column].given = true
+      else
+        puts "That is a given tile. Try another spot."
+      end
+
     else
       puts "invalid input"
       make_move
@@ -101,17 +109,11 @@ class Board
     end
     col_flag = temp_col.map {|el| el.value}.count(number) == 1
 
-    return row_flag && col_flag
+    row_flag && col_flag
 
 
   end
 
-  def run
-    until solved?
-      render
-      make_move
-    end
-  end
 
 end
 
