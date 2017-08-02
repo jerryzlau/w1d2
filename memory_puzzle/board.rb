@@ -33,7 +33,7 @@ class Board
         if num.show
           print "| #{num.value} |"
         elsif num.show == false
-          print "|    |"
+          print "|   |"
         end
       end
       print "\n"
