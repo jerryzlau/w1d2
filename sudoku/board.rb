@@ -93,16 +93,13 @@ class Board
     temp = @grid.dup
     temp[row][column].value = number
     row_flag = temp[row].map {|el| el.value}.count(number) == 1
-    p "row flag #{row_flag} | #{temp[row].map {|el| el.value}}"
 
     #check column
     temp_col = []
     temp.each do |row|
       temp_col << row[column]
     end
-    col_flag = temp_col.count(number) == 1
-
-    p "col_flag #{col_flag}"
+    col_flag = temp_col.map {|el| el.value}.count(number) == 1
 
     return row_flag && col_flag
 
